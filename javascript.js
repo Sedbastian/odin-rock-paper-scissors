@@ -14,68 +14,112 @@ function computerPlay() {
     return Play;
 }
 
-function singleRound(playerSelection, computerSelection) {
+function playRound(playerSelection) {
 
+    let computerSelection = computerPlay();
     let playerSelectionLowerCase = playerSelection.toLowerCase();
-    let computerSelectionLowerCase = computerSelection.toLowerCase();
+    numeroVuelta++;
+    let resultadoVuelta;
 
-    if (playerSelectionLowerCase === "piedra" && computerSelectionLowerCase === "piedra") {
-        console.log("Empate");
-        return 0;
-    }
-    if (playerSelectionLowerCase === "piedra" && computerSelectionLowerCase === "papel") {
-        console.log("Perdiste esta vuelta");
-        return -1;
-    }
-    if (playerSelectionLowerCase === "piedra" && computerSelectionLowerCase === "tijera") {
-        console.log("Ganaste esta vuelta");
-        return 1;
-    }
-    if (playerSelectionLowerCase === "papel" && computerSelectionLowerCase === "piedra") {
-        console.log("Ganaste esta vuelta");
-        return 1;
-    }
-    if (playerSelectionLowerCase === "papel" && computerSelectionLowerCase === "papel") {
-        console.log("Empate");
-        return 0;
-    }
-    if (playerSelectionLowerCase === "papel" && computerSelectionLowerCase === "tijera") {
-        console.log("Perdiste esta vuelta");
-        return -1;
-    }
-    if (playerSelectionLowerCase === "tijera" && computerSelectionLowerCase === "piedra") {
-        console.log("Perdiste esta vuelta");
-        return -1;
-    }
-    if (playerSelectionLowerCase === "tijera" && computerSelectionLowerCase === "papel") {
-        console.log("Ganaste esta vuelta");
-        return 1;
-    }
-    if (playerSelectionLowerCase === "tijera" && computerSelectionLowerCase === "tijera") {
-        console.log("Empate");
-        return 0;
-    }
-}
+    if (playerSelectionLowerCase === "piedra" && computerSelection === "piedra") {
+        resultadoVuelta = "Empate";
+        console.log(resultadoVuelta);
+        puntaje = puntaje + 0;
+    };
 
-function game() {
-    let score = 0;
-    for (let i = 0; i < 5; i++) {
-        let playerChoice = prompt("Piedra, papel o tijera:");
-        console.log(`Vuelta ${i+1}:`);
-        let computerMove = computerPlay();
-        console.log(`La compu juega: ${computerMove}`);
-        score = score + singleRound(playerChoice, computerMove);
-        console.log(`Tus puntos de la partida: ${score}`);
-    }
-    if (score < 0) {
-        console.log("Perdiste la partida");
-    }
-    if (score === 0) {
-        console.log("Partida empatada");
-    }
-    if (score > 0) {
-        console.log("Ganaste la partida");
-    }
-}
+    if (playerSelectionLowerCase === "piedra" && computerSelection === "papel") {
+        resultadoVuelta = "Perdiste esta vuelta"
+        console.log(resultadoVuelta);
+        puntaje = puntaje - 1;
+    };
 
-game();
+    if (playerSelectionLowerCase === "piedra" && computerSelection === "tijera") {
+        resultadoVuelta = "Ganaste esta vuelta";
+        console.log(resultadoVuelta);
+        puntaje = puntaje + 1;
+    };
+
+    if (playerSelectionLowerCase === "papel" && computerSelection === "piedra") {
+        resultadoVuelta = "Ganaste esta vuelta";
+        console.log(resultadoVuelta);
+        puntaje = puntaje + 1;
+    };
+
+    if (playerSelectionLowerCase === "papel" && computerSelection === "papel") {
+        resultadoVuelta = "Empate";
+        console.log(resultadoVuelta);
+        puntaje = puntaje + 0;
+    };
+
+    if (playerSelectionLowerCase === "papel" && computerSelection === "tijera") {
+        resultadoVuelta = "Perdiste esta vuelta"
+        console.log(resultadoVuelta);
+        puntaje = puntaje - 1;
+    };
+
+    if (playerSelectionLowerCase === "tijera" && computerSelection === "piedra") {
+        resultadoVuelta = "Perdiste esta vuelta"
+        console.log(resultadoVuelta);
+        puntaje = puntaje - 1;
+    };
+
+    if (playerSelectionLowerCase === "tijera" && computerSelection === "papel") {
+        resultadoVuelta = "Ganaste esta vuelta";
+        console.log(resultadoVuelta);
+        puntaje = puntaje + 1;
+    };
+
+    if (playerSelectionLowerCase === "tijera" && computerSelection === "tijera") {
+        resultadoVuelta = "Empate";
+        console.log(resultadoVuelta);
+        puntaje = puntaje + 0;
+    };
+
+    computerSelection = computerSelection.toUpperCase();
+    const resultadoDiv = document.createElement("div");
+    resultadoDiv.textContent = `Vuelta número ${numeroVuelta}: La compu juega ${computerSelection}, ${resultadoVuelta}`;
+    resultados.appendChild(resultadoDiv);
+    const puntajeDiv = document.createElement("div");
+    puntajeDiv.textContent = `Tu puntaje: ${puntaje}`;
+    resultados.appendChild(puntajeDiv);
+    
+    if (puntaje === 5) {
+        puntaje = 0;
+        const ganasteDiv = document.createElement("div");
+        ganasteDiv.textContent = "¡¡¡Ganaste!!!";
+        resultados.appendChild(ganasteDiv);
+    }
+
+    if (puntaje === -5) {
+        puntaje = 0;
+        const perdisteDiv = document.createElement("div");
+        perdisteDiv.textContent = "¡¡¡Perdiste!!!";
+        resultados.appendChild(perdisteDiv);
+    }
+};
+
+function juegaPiedra() {
+    playRound("piedra");
+};
+
+function juegaPapel() {
+    playRound("papel");
+};
+
+function juegaTijera() {
+    playRound("tijera");
+};
+
+let puntaje = 0;
+let numeroVuelta = 0;
+
+const resultados = document.querySelector("#resultados");
+
+const piedra = document.querySelector("#piedra");
+piedra.addEventListener("click", juegaPiedra);
+
+const papel = document.querySelector("#papel");
+papel.addEventListener("click", juegaPapel);
+
+const tijera = document.querySelector("#tijera");
+tijera.addEventListener("click", juegaTijera);
