@@ -1,0 +1,43 @@
+body {
+    font-family: fantasy;
+    text-align: center;
+    background-color: indigo;
+}
+
+.titulo {
+    font-size: 50px;
+    padding: 50px;
+    padding-bottom: 0;
+    color: coral;
+}
+
+.regla {
+    font-size: 25px;
+    padding-bottom: 50px;
+    color: brown;
+}
+
+button {
+    font-family: 'Trebuchet MS';
+    font-size: 50px;
+    margin: 10px;
+    color: darkgreen;
+    background-color: aquamarine;
+    border-width: 6px;
+}
+
+.contenedor {
+    display: flex;
+    justify-content: space-between;
+    padding: 60px;
+}
+
+#resultados {
+    color: sandybrown;
+    font-size: 25px;
+}
+
+#puntajes {
+    color: yellowgreen;
+    font-size: 40px;
+}

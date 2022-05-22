@@ -24,77 +24,74 @@ function playRound(playerSelection) {
     if (playerSelectionLowerCase === "piedra" && computerSelection === "piedra") {
         resultadoVuelta = "Empate";
         console.log(resultadoVuelta);
-        puntaje = puntaje + 0;
+        
     };
 
     if (playerSelectionLowerCase === "piedra" && computerSelection === "papel") {
         resultadoVuelta = "Perdiste esta vuelta"
         console.log(resultadoVuelta);
-        puntaje = puntaje - 1;
+        puntajeCompu++;
     };
 
     if (playerSelectionLowerCase === "piedra" && computerSelection === "tijera") {
         resultadoVuelta = "Ganaste esta vuelta";
         console.log(resultadoVuelta);
-        puntaje = puntaje + 1;
+        puntajePersona++;
     };
 
     if (playerSelectionLowerCase === "papel" && computerSelection === "piedra") {
         resultadoVuelta = "Ganaste esta vuelta";
         console.log(resultadoVuelta);
-        puntaje = puntaje + 1;
+        puntajePersona++;
     };
 
     if (playerSelectionLowerCase === "papel" && computerSelection === "papel") {
         resultadoVuelta = "Empate";
         console.log(resultadoVuelta);
-        puntaje = puntaje + 0;
     };
 
     if (playerSelectionLowerCase === "papel" && computerSelection === "tijera") {
         resultadoVuelta = "Perdiste esta vuelta"
         console.log(resultadoVuelta);
-        puntaje = puntaje - 1;
+        puntajeCompu++;
     };
 
     if (playerSelectionLowerCase === "tijera" && computerSelection === "piedra") {
         resultadoVuelta = "Perdiste esta vuelta"
         console.log(resultadoVuelta);
-        puntaje = puntaje - 1;
+        puntajeCompu++;
     };
 
     if (playerSelectionLowerCase === "tijera" && computerSelection === "papel") {
         resultadoVuelta = "Ganaste esta vuelta";
         console.log(resultadoVuelta);
-        puntaje = puntaje + 1;
+        puntajePersona++;
     };
 
     if (playerSelectionLowerCase === "tijera" && computerSelection === "tijera") {
         resultadoVuelta = "Empate";
         console.log(resultadoVuelta);
-        puntaje = puntaje + 0;
     };
 
     computerSelection = computerSelection.toUpperCase();
-    const resultadoDiv = document.createElement("div");
+    const resultadoDiv = document.querySelector("#resultados");
     resultadoDiv.textContent = `Vuelta número ${numeroVuelta}: La compu juega ${computerSelection}, ${resultadoVuelta}`;
-    resultados.appendChild(resultadoDiv);
-    const puntajeDiv = document.createElement("div");
-    puntajeDiv.textContent = `Tu puntaje: ${puntaje}`;
-    resultados.appendChild(puntajeDiv);
-    
-    if (puntaje === 5) {
-        puntaje = 0;
+    const puntajesDiv = document.querySelector("#puntajes");
+    puntajesDiv.textContent = `Tu puntaje: ${puntajePersona}. Puntaje Compu: ${puntajeCompu}.`;
+        
+    if (puntajePersona === 5) {
         const ganasteDiv = document.createElement("div");
-        ganasteDiv.textContent = "¡¡¡Ganaste!!!";
-        resultados.appendChild(ganasteDiv);
+        puntajesDiv.textContent = `¡¡¡Ganaste!!! ${puntajePersona} a ${puntajeCompu}`;
+        puntajePersona = 0;
+        puntajeCompu = 0;
     }
 
-    if (puntaje === -5) {
-        puntaje = 0;
+    if (puntajeCompu === 5) {
+        
         const perdisteDiv = document.createElement("div");
-        perdisteDiv.textContent = "¡¡¡Perdiste!!!";
-        resultados.appendChild(perdisteDiv);
+        puntajesDiv.textContent = `¡¡¡Perdiste!!! ${puntajePersona} a ${puntajeCompu}`;
+        puntajePersona = 0;
+        puntajeCompu = 0;
     }
 };
 
@@ -110,7 +107,8 @@ function juegaTijera() {
     playRound("tijera");
 };
 
-let puntaje = 0;
+let puntajePersona = 0;
+let puntajeCompu = 0;
 let numeroVuelta = 0;
 
 const resultados = document.querySelector("#resultados");
